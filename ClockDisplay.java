@@ -39,6 +39,7 @@ public class ClockDisplay
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
+        updateDisplay();
     }
 
     /**
@@ -78,7 +79,32 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        int hr = hours.getValue();
+        int mn = minutes.getValue();
+        
+        String meridian = "";
+        String hrSpace = "";
+        String mnSpace = "";
+        
+        if (hr >= 12){
+         meridian = "pm";
+        } else if (hr < 12) 
+            meridian = "am";
+            
+            if (hr > 12){
+             hr -= 12;   
+            }
+            
+        if (hr == 0){
+         hr = 12;   
+        }
+            
+        if (mn < 10)
+            mnSpace = "0";
+            else if (hr < 10)
+            hrSpace = "0";
+        
+            this.displayString = (hrSpace + hr + ":" + mnSpace + mn + " " + meridian);
+
     }
 }
