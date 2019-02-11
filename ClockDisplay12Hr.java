@@ -41,8 +41,8 @@ public class ClockDisplay12Hr
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
-        this.am = am;
-        setTime(hour, minute);
+        
+        setTime(hour, minute, am);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ClockDisplay12Hr
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             
-            if (hours.getValue() + 1 > 12)
+            if (hours.getValue() + 1 >= 12)
             am = !am;
             
             hours.increment();
@@ -68,10 +68,11 @@ public class ClockDisplay12Hr
      * Set the time of the display to the specified hour and
      * minute.
      */
-    public void setTime(int hour, int minute)
+    public void setTime(int hour, int minute, boolean am)
     {
         hours.setValue(hour);
         minutes.setValue(minute);
+        this.am = am;
         updateDisplay();
     }
 
@@ -88,10 +89,13 @@ public class ClockDisplay12Hr
      */
     private void updateDisplay()
     {
-        String meridian;
-        if (am = true)
+        String meridian = "";
+        if (am == true) {
         meridian = "am";
-        else meridian = "pm";
+    }
+        else if (am == false)  {
+            meridian = "pm";
+        }
         
         if (hours.getValue() == 0) {
             displayString = 12 + ":" + 
